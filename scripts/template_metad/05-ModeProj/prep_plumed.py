@@ -60,26 +60,68 @@ def inBackbone(atomName):
     else:
         return False
 
+def calcSizes(struct, nBeads):
+    prevRes = int(struct[0,4]) # Resid of the first residue in pdb file
+    curr = 0
+    scaling = 100 # Constant to scale modes by
+    beadCounter = np.zeros(nBeads)
+    for i in range(len(struct)):
 
+        # Check to see if the current atom is in the same residue as the last atom
+        if(int(struct[i,4]) == prevRes):
+            # If it is, check to see if it is an atom with only backbone atoms
+            if(isBackboneOnly(struct[i,3])):
+                beadCounter[curr] = beadCounter[curr] + 1
+            
+            elif(not isBackboneOnly(struct[i,3])):
+                if(inBackbone(struct[i,2])):
+                    beadCounter[curr] = beadCounter[curr] + 1
+                elif(not inBackbone(struct[i,2])):
+                    beadCounter[curr+1] = beadCounter[curr+1] + 1
+
+        elif(int(struct[i,4]) != prevRes):
+            prevRes = int(struct[i,4])
+        
+            # If the last residue only contained backbone atoms, then we only need to iterate
+            # once. However, the the last residue had BACK and SIDE reßßßsidues, we need to iterate
+            # twice to move to the eigenvectors associated with the next residue.
+            if(isBackboneOnly(struct[i-1,3])):
+                curr = curr + 1
+            else:
+                curr = curr + 2
+            
+            # This is the same as the outermost if statement. This is required to handle the edge
+            # case of switching residues.
+            # Could probably be in a function.
+            if(isBackboneOnly(struct[i,3])):
+                beadCounter[curr] = beadCounter[curr] + 1
+            else:
+                if(int(struct[i,4]) == prevRes and inBackbone(struct[i,2])):
+                    beadCounter[curr] = beadCounter[curr] + 1
+                elif(int(struct[i,4]) == prevRes and not inBackbone(struct[i,2])):
+                    beadCounter[curr+1] = beadCounter[curr+1] + 1
+    return beadCounter
 # Now we will parse the reference structure and match our bead eigenvectors to the atoms
 
 prevRes = int(struct[0,4]) # Resid of the first residue in pdb file
 curr = 0
 scaling = 100 # Constant to scale modes by
+beadCounter = calcSizes(struct, nBeads)
+print(beadCounter, len(beadCounter))
 
 # For all atoms in the protein
 for i in range(len(struct)):
-    
+
     # Check to see if the current atom is in the same residue as the last atom
     if(int(struct[i,4]) == prevRes):
         
         # If it is, check to see if it is an atom with only backbone atoms
         if(isBackboneOnly(struct[i,3])):
-            
+
             # If it is backbone only, apply current coarsened eigenvector to the current atom
-            struct[i,5] = np.round(float(eigvec[curr,0]*scaling),3)
-            struct[i,6] = np.round(float(eigvec[curr,1]*scaling),3)
-            struct[i,7] = np.round(float(eigvec[curr,2]*scaling),3)
+            struct[i,5] = np.round(float(eigvec[curr,0]*scaling/beadCounter[curr]),3)
+            struct[i,6] = np.round(float(eigvec[curr,1]*scaling/beadCounter[curr]),3)
+            struct[i,7] = np.round(float(eigvec[curr,2]*scaling/beadCounter[curr]),3)
             
         # If it is NOT backbone only, we need to figure out if the current atom
         # is a backbone atom or a sidechain atom
@@ -88,16 +130,16 @@ for i in range(len(struct)):
             # If it is a backbone atom, apply the current coarsened eigenvector to 
             # current atom
             if(inBackbone(struct[i,2])):
-                struct[i,5] = np.round(float(eigvec[curr,0]*scaling),3)
-                struct[i,6] = np.round(float(eigvec[curr,1]*scaling),3)
-                struct[i,7] = np.round(float(eigvec[curr,2]*scaling),3)
+                struct[i,5] = np.round(float(eigvec[curr,0]*scaling/beadCounter[curr]),3)
+                struct[i,6] = np.round(float(eigvec[curr,1]*scaling/beadCounter[curr]),3)
+                struct[i,7] = np.round(float(eigvec[curr,2]*scaling/beadCounter[curr]),3)
                 
             # If it is a sidechain atom, we have to look at the next coarsened eigenvector
             # Since our convention is BACK then SIDE
             elif(not inBackbone(struct[i,2])):
-                struct[i,5] = np.round(float(eigvec[curr+1,0]*scaling),3)
-                struct[i,6] = np.round(float(eigvec[curr+1,1]*scaling),3)
-                struct[i,7] = np.round(float(eigvec[curr+1,2]*scaling),3)
+                struct[i,5] = np.round(float(eigvec[curr+1,0]*scaling/beadCounter[curr+1]),3)
+                struct[i,6] = np.round(float(eigvec[curr+1,1]*scaling/beadCounter[curr+1]),3)
+                struct[i,7] = np.round(float(eigvec[curr+1,2]*scaling/beadCounter[curr+1]),3)
             
     # If the current atom residue number is not equal to the residue number of the 
     # previous atom, we need to get the eigenvectors for the next residue
@@ -119,18 +161,19 @@ for i in range(len(struct)):
         # case of switching residues.
         # Could probably be in a function.
         if(isBackboneOnly(struct[i,3])):
-            struct[i,5] = np.round(float(eigvec[curr,0]*scaling),3)
-            struct[i,6] = np.round(float(eigvec[curr,1]*scaling),3)
-            struct[i,7] = np.round(float(eigvec[curr,2]*scaling),3)
+            struct[i,5] = np.round(float(eigvec[curr,0]*scaling/beadCounter[curr]),3)
+            struct[i,6] = np.round(float(eigvec[curr,1]*scaling/beadCounter[curr]),3)
+            struct[i,7] = np.round(float(eigvec[curr,2]*scaling/beadCounter[curr]),3)
         else:
             if(int(struct[i,4]) == prevRes and inBackbone(struct[i,2])):
-                struct[i,5] = np.round(float(eigvec[curr,0]*scaling),3)
-                struct[i,6] = np.round(float(eigvec[curr,1]*scaling),3)
-                struct[i,7] = np.round(float(eigvec[curr,2]*scaling),3)
+                struct[i,5] = np.round(float(eigvec[curr,0]*scaling/beadCounter[curr]),3)
+                struct[i,6] = np.round(float(eigvec[curr,1]*scaling/beadCounter[curr]),3)
+                struct[i,7] = np.round(float(eigvec[curr,2]*scaling/beadCounter[curr]),3)
             elif(int(struct[i,4]) == prevRes and not inBackbone(struct[i,2])):
-                struct[i,5] = np.round(float(eigvec[curr+1,0]*scaling),3)
-                struct[i,6] = np.round(float(eigvec[curr+1,1]*scaling),3)
-                struct[i,7] = np.round(float(eigvec[curr+1,2]*scaling),3)
+                beadCounter[curr+1] = beadCounter[curr+1] + 1
+                struct[i,5] = np.round(float(eigvec[curr+1,0]*scaling/beadCounter[curr+1]),3)
+                struct[i,6] = np.round(float(eigvec[curr+1,1]*scaling/beadCounter[curr+1]),3)
+                struct[i,7] = np.round(float(eigvec[curr+1,2]*scaling/beadCounter[curr+1]),3)
 
 
 # Export the eigenvector
