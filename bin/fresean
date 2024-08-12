@@ -1,0 +1,221 @@
+#!/bin/bash
+
+EXE="$(cd "$(dirname "${BASH_SOURCE:-$0}")"&& pwd)"
+usage(){
+	printf "__________________________________\nWelcome to FRESEAN V1.0!\nPlease refer to README.md for an\nin-depth guide to FRESEAN V1.0.\nQuick Guide of Available Programs\n----------------------------------\n\nfresean freqs: Generate list of available frequencies given\n\t\tcorrelaiton function length.\n\nfresean mtop: Generate custom .mtop topology.\n\nfresean coarse: Generate spatially coarsened trajectory.\n\nfresean covar: Generate frequency dependent cross-correlation\n\t\tmatrices.\n\nfresean eigen: Generate FRESEAN modes from velocity\n\t\tcross-correlation matrices.\n\nfresean extract: Extract vibrational modes from .mmat format\n\t\tinto .xyz format.\n\nfresean xyz2pdb: Convert .xyz modes to .pdb modes.\n\nfresean avg: Average over many velocity cross-correlation\n\t\tmatrices.\n\n-------------------------------------\nQuestions about repository should\nbe directed to: masauer2@asu.edu.\n-------------------------------------\n"
+}
+gen_list_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean freqs [-n <int>] [-t <float>] [-o <string>]\n" 1>&2; exit 1; }
+extract_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean extract [-f <string>]\n" 1>&2; exit 1; }
+mtop_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean mtop [-p <string>]\n" 1>&2; exit 1; }
+traj_coarse_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean coarse [-f <string>]\n" 1>&2; exit 1; }
+gen-modes_omp_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean covar [-f <string>]\n" 1>&2; exit 1; }
+eigen_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean eigen [-m <string>] [-n <int>]\n" 1>&2; exit 1; }
+eigVec_PLUMEDformat_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean xyz2pdb [-f <string>]\n" 1>&2; exit 1; }
+avg-covar_usage(){ printf "Error in user input:\nInvalid command-line options\nUsage: fresean avg [-f <string>]\n" 1>&2; exit 1; }
+
+gen_list_subcommand(){
+	local OPTIND
+	programname=$EXE/gen_list
+	while getopts "n:t:o:" opt      # get options for -a and -b ( ':' - option has an argument )
+	do
+		case $opt in
+			n) n=${OPTARG};;
+			t) t=${OPTARG};;
+			o) o=${OPTARG};;	
+		esac
+	done
+	if [ -z "$n" ] || [ -z "$t" ] || [ -z "$o" ]; then
+		gen_list_usage
+		exit 1
+	fi
+	if [[ "$n" -le 0 ]];then
+		printf "Error in user input:\nInvalid command-line options\n   In command-line option -n\n      The number of correlation points must be positive.\n"
+		exit 1
+	fi
+	if [[ "$t" -le 0 ]];then
+		printf "Error in user input:\nInvalid command-line options\n   In command-line option -t\n      The timestep must be positive.\n"
+		exit 1
+	fi
+	$programname ${n} ${t} ${o}
+}
+
+extract_subcommand(){
+	local OPTIND
+	programname=$EXE/extract
+	while getopts "f:" opt
+	do
+		case $opt in
+			f) f=${OPTARG};;
+		esac
+	done
+	if [ -z "$f" ]; then
+		extract_usage
+		exit 1
+	fi
+	
+	if [ ! -f "$f" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
+		exit 1
+	fi
+
+	$programname ${f}
+}
+
+mtop_subcommand(){
+	local OPTIND
+	programname=$EXE/convertGMXTOP
+	while getopts "p:" opt
+	do
+		case $opt in
+			p) p=${OPTARG};;
+		esac
+	done
+	if [ -z "$p" ]; then
+		mtop_usage
+		exit 1
+	fi
+
+	if [ ! -f "$p" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -m\n      File '$m' does not exist or is not acessible.\n"
+		exit 1
+	fi
+
+	isProtein=$(awk 'END{print substr($0,0,7)}' $p);
+	if [[ $isProtein != "Protein" ]]; then
+		echo "Protein topology must only contain protein. Remove solvent.";
+		exit 1;
+	fi
+
+	$programname
+}
+
+coarse_subcommand(){
+	local OPTIND
+	programname=$EXE/traj_coarse
+	while getopts "f:" opt
+	do
+		case $opt in
+			f) f=${OPTARG};;
+		esac
+	done
+	if [ -z "$f" ]; then
+		traj_coarse_usage
+		exit 1
+	fi
+	
+	if [ ! -f "$f" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
+		exit 1
+	fi
+
+	$programname ${f}
+}
+
+covar_subcommand(){
+	local OPTIND
+	programname=$EXE/gen-modes_omp
+	while getopts "f:" opt
+	do
+		case $opt in
+			f) f=${OPTARG};;
+		esac
+	done
+	if [ -z "$f" ]; then
+		gen-modes_omp_usage
+		exit 1
+	fi
+	if [ ! -f "$f" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
+		exit 1
+	fi
+	$programname ${f}
+}
+
+eigen_subcommand(){
+	local OPTIND
+	programname=$EXE/eigen
+	while getopts "m:n:" opt
+	do
+		case $opt in
+			m) m=${OPTARG};;
+			n) n=${OPTARG};;
+		esac
+	done
+	if [ -z "$m" ] || [ -z "$n" ]; then
+		eigen_usage
+	fi
+
+	if [ ! -f "$m" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -m\n      File '$m' does not exist or is not acessible.\n"
+		exit 1
+	fi
+
+	if [[ "$n" -le 0 ]];then
+		printf "Error in user input:\nInvalid command-line options\n   In command-line option -m\n      The number of correlation points must be positive.\n"
+		exit 1
+	fi
+	
+	$programname ${m} ${n}
+}
+
+convert-eigvec_subcommand(){
+	local OPTIND
+	programname=$EXE/eigVec_PLUMEDformat
+	while getopts "f:" opt
+	do
+		case $opt in
+			f) f=${OPTARG};;
+		esac
+	done
+	if [ -z "$f" ]; then
+		eigVec_PLUMEDformat_usage
+		exit 1
+	fi
+	if [ ! -f "$f" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
+		exit 1
+	fi
+	$programname ${f}
+}
+
+
+avg-covar_subcommand(){
+	local OPTIND
+	programname=$EXE/avgBinMatrixList
+	while getopts "f:" opt
+	do
+		case $opt in
+			f) f=${OPTARG};;
+		esac
+	done
+	if [ -z "$f" ]; then
+		avg-covar_usage
+		exit 1
+	fi
+	if [ ! -f "$f" ]; then
+    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
+		exit 1
+	fi
+	$programname ${f}
+}
+
+case "$1" in
+	freqs)
+		gen_list_subcommand "${@:2}";;
+	extract)
+		extract_subcommand "${@:2}";;
+	mtop)
+		mtop_subcommand "${@:2}";;
+	coarse)
+		coarse_subcommand "${@:2}";;
+	covar)
+		covar_subcommand "${@:2}";;
+	eigen)
+		eigen_subcommand "${@:2}";;
+	xyz2pdb)
+		convert-eigvec_subcommand "${@:2}";;
+	avg)
+		avg-covar_subcommand "${@:2}";;
+	*) 
+		usage;;
+esac
