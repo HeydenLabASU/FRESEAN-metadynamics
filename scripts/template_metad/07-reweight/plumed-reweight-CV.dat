@@ -27,10 +27,3 @@ pincerangle: ANGLE ATOMS=G1,G2,G3
 # Print each of the desired quantities to a file. Can manually reweight.
 # Weight of frame i is given by w_i \propto exp(V/kT). V is given in the reweight file as metad.bias.
 PRINT ARG=pca.eig-1,pca.eig-2,pincerangle,rg,pca.residual,metad.bias FILE=plumed-reweight-CV.out STRIDE=1
-
-# Can automatically reweight using built in plumed histogram function.
-as: REWEIGHT_BIAS ARG=metad.bias
-CV2: HISTOGRAM ARG=pincerangle,rg STRIDE=1 GRID_MIN=0.6,1.3 GRID_MAX=2.0,1.7 GRID_BIN=50,50 KERNEL=DISCRETE LOGWEIGHTS=as
-
-newFES: CONVERT_TO_FES GRID=CV2
-DUMPGRID GRID=newFES FILE=plumed-reweight-CV.fes

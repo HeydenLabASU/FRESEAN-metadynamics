@@ -6,6 +6,7 @@
 #SBATCH -t 0-04:00                  # wall time (D-HH:MM)
 #SBATCH -J FRESEAN
 
+module load fftw-3.3.10-gcc-11.2.0
 #BEGIN INPUT
 #input topology in custom format
 inpMTOP=../03-CG/topol_prot-cg.mtop

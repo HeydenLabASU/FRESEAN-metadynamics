@@ -10,7 +10,7 @@
 inpTOP=../00-prep/topol.top
 gmx=gmx_plumed
 inpGRO=../01-em+equi/equi/equi.gro
-inpPlumedPDB=../05-ModeProj-weighted/plumed-mode-input.pdb
+inpPlumedPDB=../05-ModeProj/plumed-mode-input.pdb
 #GMX group number for protein (gmx trjconv)
 outGrp=1
 #END INPUT
