@@ -105,7 +105,7 @@ Energy minimization (`em.mdp`) and 100ps NPT equilibration (`equi.mdp`).
 
 ## 02-MD/run.sh
 
-10 ns NPT sampling simulation (`sample-NPT.mdp`) with 20 fs output frequency.
+20 ns NPT sampling simulation (`sample-NPT.mdp`) with 20 fs output frequency.
 
 ## 03-CG/run.sh
 
@@ -117,7 +117,7 @@ Generate velocity cross-correlation matrix (`fresean covar`), diagonalize the ma
 
 ## 05-ModeProj/run.sh
 
-Displacement projection of 10 ns trajectory onto FRESEAN modes.
+Displacement projection of 20 ns trajectory onto FRESEAN modes.
 
 ## 06-metadyn/run.sh
 
