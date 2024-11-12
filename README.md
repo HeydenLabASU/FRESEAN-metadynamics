@@ -17,7 +17,7 @@ plumed 2.8.*
 ## FRESEAN Installation
 Please follow the following instruction to install our suite of tools.
 ```
-git clone https://github.com/masauer2/FRESEANCOARSE.git
+git clone https://github.com/HeydenLabASU/FRESEANCOARSE.git
 cd FRESEANCOARSE
 make
 make install
