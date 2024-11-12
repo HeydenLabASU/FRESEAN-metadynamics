@@ -95,10 +95,10 @@ source '$HOME/gromacs-2022.5-plumed-2.8.2/bin/GMXRC.bash'
 <details>
 <summary> FRESEANCOARSE V2 </summary>
 # FRESEANCOARSE V2
-There are example scripts provided at `scripts/metad_workflow`. This workflow starts with a pdb file and runs 250 well-temperated metadynamics with 0 THz FRESEAN modes. There is a `run.sh` script in each folder that runs the respective step. I will explain each run script below.
+There are example scripts provided at `scripts/metad_workflow`. This workflow starts with a pdb file and runs 250 ns well-tempered metadynamics with 0 THz FRESEAN modes. There is a `run.sh` script in each folder that runs the respective step. Each step is briefly described below.
 
 ## 00-prep/run.sh 
-Prepare your simulation by adding a box around the protein, adding solvent, and generating ions. Keep a mind that pdb filename, force field, water model and box size will have to be set manually. Default is AMBER99sb-isln and tip3p.
+Prepare your simulation by adding a box around the protein, adding solvent, and generating ions. Keep a mind that pdb filename, force field, water model and box size will have to be set manually. Default is AMBER99sb-ILDN and tip3p.
 
 ## 01-em+equi/run.sh 
 
