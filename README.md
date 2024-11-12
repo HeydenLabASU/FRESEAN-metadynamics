@@ -92,8 +92,8 @@ source '$HOME/gromacs-2022.5-plumed-2.8.2/bin/GMXRC.bash'
 </details>
 
 <details>
-<summary> FRESEANCOARSE V2 </summary>
-# FRESEANCOARSE V2
+<summary> FRESEANCOARSE for HEWL example </summary>
+# FRESEANCOARSE for HEWL Example
 There are example scripts provided at `scripts/metad_workflow`. This workflow starts with a pdb file and runs 250 ns well-tempered metadynamics with 0 THz FRESEAN modes. There is a `run.sh` script in each folder that runs the respective step. Each step is briefly described below.
 
 ## 00-prep/run.sh 
