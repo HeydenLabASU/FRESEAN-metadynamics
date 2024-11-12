@@ -305,6 +305,10 @@ This input file is utilized by `fresean avg`.<br>
 - ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)`fnList`: A line-delimited list containing the names of individual cross-correlation matrices <br>
 - ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)`fnOut`: Output file name <br>
 
+</details>
+
+<details>
+
 <summary> References </summary>
 
 # References
