@@ -1,5 +1,5 @@
-# FREquency-SElective ANharmonic (FRESEAN) Mode Analysis of Thermally Excited Vibrations in Proteins (with coarse-graining) 
-This codebase allows the user to run MD simulations of proteins and generate vibrational motions utilizing FRESEAN, a method used to extract low-frequency anharmonic vibrational modes of proteins. 
+# Fast Sampling of Protein Conformational Dynamics
+This codebase allows the user to run MD simulations of proteins, extract vibrational motions using the FREquency-SElective ANharmonic (FRESEAN) mode analysis, and to use the lowest-frequency vibrational modes as collective variables in enhanced sampling simulations (well-tempered metadynamics) to speed up conformational sampling. 
 Please read through each of the following sections to understand how to use this repository. 
 <details>
   
