@@ -304,3 +304,10 @@ This input file is utilized by `fresean avg`.<br>
 - ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)`nFiles`: Number of cross-correlation matrices that you wish to average over <br>
 - ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)`fnList`: A line-delimited list containing the names of individual cross-correlation matrices <br>
 - ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)`fnOut`: Output file name <br>
+
+<summary> References </summary>
+
+# References
+- M. A. Sauer, S. Mondal, B. Neff, S. Maiti, M. Heyden, Fast Sampling of Protein Conformational Synamics, arXiv:submit/5994800
+- S. Mondal, M. A. Sauer, M. Heyden, Exploring Conformational Landscapes Along Anharmonic Low-Frequency Vibrations, J. Phys. Chem. B 128, 7112-7120 (2024).
+- M. A. Sauer, M.Heyden, Frequency-Selective Anharmonic Mode Analysis of Thermally Excited Vibrations in Proteins, J. Chem. Theory Comput. 19, 5481-5490 (2023).
