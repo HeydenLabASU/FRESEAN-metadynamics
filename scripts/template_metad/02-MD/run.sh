@@ -9,7 +9,7 @@
 
 #BEGIN INPUT
 inpTOP=../00-prep/topol.top
-inpGRO=../01-em+equi/equi.gro
+inpGRO=../01-em+equi/equi/equi.gro
 next=1
 nextDir=../03-CG
 gmx=gmx_plumed
