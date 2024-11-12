@@ -1,18 +1,17 @@
-# Frequency-Selective Anharmonic Mode Analysis of Thermally Excited Vibrations in Proteins (With Coarse Graining!) 
+# FREquency-SElective ANharmonic (FRESEAN) Mode Analysis of Thermally Excited Vibrations in Proteins (with coarse-graining) 
 This codebase allows the user to run MD simulations of proteins and generate vibrational motions utilizing FRESEAN, a method used to extract low-frequency anharmonic vibrational modes of proteins. 
 Please read through each of the following sections to understand how to use this repository. 
 <details>
   
 <summary> FRESEAN Installation </summary>
 
-## Dependencies
-FFTW (need version)
-cmake(need version)
-gcc (need version)
-python3.8 (need version)
-jupyter (need version)
+## Tested Dependencies
+FFTW 3.3.10
+GNU make 3.8.1
+gcc 14.2
+python 3.12
 gromacs 2022.5
-plumed 2.8.*
+plumed 2.8.2
 
 ## FRESEAN Installation
 Please follow the following instruction to install our suite of tools.
@@ -71,7 +70,7 @@ plumed patch -p --runtime
 cd ..
 ```
 
-## Step 3: Compiling Gromacs 2022.5 with PLUMED 2.8.2 on ASU SOL
+## Step 3: Compiling Gromacs 2022.5 with PLUMED 2.8.2 (example for the SOL cluster at Arizona State University)
 ```
 module load gcc-11.2.0-gcc-11.2.0
 module load cuda-11.7.0-gcc-11.2.0
@@ -98,7 +97,7 @@ source '$HOME/gromacs-2022.5-plumed-2.8.2/bin/GMXRC.bash'
 There are example scripts provided at `scripts/metad_workflow`. This workflow starts with a pdb file and runs 250 ns well-tempered metadynamics with 0 THz FRESEAN modes. There is a `run.sh` script in each folder that runs the respective step. Each step is briefly described below.
 
 ## 00-prep/run.sh 
-Prepare your simulation by adding a box around the protein, adding solvent, and generating ions. Keep a mind that pdb filename, force field, water model and box size will have to be set manually. Default is AMBER99sb-ILDN and tip3p.
+Prepare your simulation by adding a box around the protein, adding solvent, and generating ions. Keep in mind that the pdb filename, force field, water model and box size will have to be set manually. The default is force field used in our scripts is AMBER99sb-ILDN and tip3p.
 
 ## 01-em+equi/run.sh 
 
