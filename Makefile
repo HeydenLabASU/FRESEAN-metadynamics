@@ -19,12 +19,11 @@ build/projDispTrjOnPLUMEDModes.o: ${CODE}/projDispTrjOnPLUMEDModes.c
 projDispTrjOnSelFreqModes: build/projDispTrjOnSelFreqModes.o
 	gcc ${SRCDIR}/fatal.o ${SRCDIR}/GMXtrrio.o ${SRCDIR}/io.o ${SRCDIR}/geo.o ${SRCDIR}/top.o ${SRCDIR}/alloc.o ${SRCDIR}/mol.o ${SRCDIR}/job.o ${SRCDIR}/select.o ${SRCDIR}/qsort.o ${SRCDIR}/align.o ${SRCDIR}/grps.o build/projDispTrjOnSelFreqModes.o -o bin/projDispTrjOnSelFreqModes -lm
 
-
 build/projDispTrjOnSelFreqModes.o: ${CODE}/projDispTrjOnSelFreqModes.c
 	gcc -c ${CODE}/projDispTrjOnSelFreqModes.c -o build/projDispTrjOnSelFreqModes.o
 
-convertGMXTOP: ${SRCDIR}/gmxtop-2.0.o 
-	gcc ${SRCDIR}/fatal.o ${SRCDIR}/GMXtrrio.o ${SRCDIR}/io.o ${SRCDIR}/geo.o ${SRCDIR}/alloc.o ${SRCDIR}/gmxtop-2.0.o -o bin/convertGMXTOP -lm -lfftw3
+convertGMXTOP: ${SRCDIR}/gmxtop.o 
+	gcc ${SRCDIR}/fatal.o ${SRCDIR}/GMXtrrio.o ${SRCDIR}/io.o ${SRCDIR}/geo.o ${SRCDIR}/alloc.o ${SRCDIR}/gmxtop.o -o bin/convertGMXTOP -lm -lfftw3
 
 avgBinMatrixList: build/avgBinMatrixList.o
 	gcc ${SRCDIR}/fatal.o ${SRCDIR}/GMXtrrio.o ${SRCDIR}/io.o ${SRCDIR}/geo.o ${SRCDIR}/alloc.o ${SRCDIR}/progress.o build/avgBinMatrixList.o -o bin/avgBinMatrixList -lm
@@ -33,7 +32,7 @@ build/avgBinMatrixList.o:${CODE}/avgBinMatrixList.c
 	gcc -c ${CODE}/avgBinMatrixList.c -o build/avgBinMatrixList.o
 
 traj_coarse: build/traj_coarse.o
-	gcc ${SRCDIR}/fatal.o ${SRCDIR}/GMXtrrio.o ${SRCDIR}/io.o ${SRCDIR}/geo.o ${SRCDIR}/top-2.0.o ${SRCDIR}/alloc.o ${SRCDIR}/mol.o ${SRCDIR}/job.o ${SRCDIR}/select.o ${SRCDIR}/qsort.o ${SRCDIR}/align.o ${SRCDIR}/grps.o build/traj_coarse.o -o bin/traj_coarse -lfftw3 -lm
+	gcc ${SRCDIR}/fatal.o ${SRCDIR}/GMXtrrio.o ${SRCDIR}/io.o ${SRCDIR}/geo.o ${SRCDIR}/top.o ${SRCDIR}/alloc.o ${SRCDIR}/mol.o ${SRCDIR}/job.o ${SRCDIR}/select.o ${SRCDIR}/qsort.o ${SRCDIR}/align.o ${SRCDIR}/grps.o build/traj_coarse.o -o bin/traj_coarse -lfftw3 -lm
 
 build/traj_coarse.o: ${CODE}/traj_coarse.c
 	gcc -c ${CODE}/traj_coarse.c -o build/traj_coarse.o

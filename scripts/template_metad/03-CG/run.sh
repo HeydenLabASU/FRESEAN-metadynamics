@@ -22,7 +22,6 @@ outTRRprotCG=sample-NPT_prot_pbc-CG.trr
 outGrp=1
 #GMX itp file with nonbonded parameters
 GMXDATA=$HOME/gromacs-2022.5-plumed-2.8.2
-ffnonbonded=$GMXDATA/share/top/amber99sb-ildn.ff/ffnonbonded.itp
 #time between frames in input trajectory
 TRJtimestep=0.020
 #number of steps in input trajectory
@@ -35,7 +34,6 @@ files=(
 ${inpTOPprot}
 ${inpTPR}
 ${inpTRR}
-${ffnonbonded}
 static.job
 )
 for file in ${files[@]}
@@ -51,7 +49,6 @@ done
 fresean mtop -p ${inpTOPprot} << STOP >& mtop.out
 ${inpTOPprot}
 ${inpTOPprot}
-${ffnonbonded}
 topol_prot-aa.mtop
 STOP
 

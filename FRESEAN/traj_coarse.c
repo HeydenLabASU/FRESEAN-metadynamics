@@ -456,11 +456,11 @@ int main(int argc, char *argv[])
 	    updateGrps(atoms,nAtoms,mols,nMols,box,grpDef,grps);
 		
 		/* Here we output the first frame of our trajectory as a reference file  
-		   Define the custom topology file (reqiures COM calculation) */
+		   Define the custom topology file (requires COM calculation) */
 		if(i == 0){
 			nRes = printReferenceFile(atoms, nAtoms, grps[analyzeGrp]);
 			printf("NRes value: %d\n", nRes);
-			printf("Cutom Topology Input: %d\n%d\n%d\n", nRes, nBeads, grps[analyzeGrp].nAtoms);
+			printf("Custom Topology Input: %d\n%d\n%d\n", nRes, nBeads, grps[analyzeGrp].nAtoms);
 			nBeads = printCustomTopology(topol, atoms, nRes, grps[analyzeGrp]);
 			printf("Value of nBeads: %d\n", nBeads);
 			fclose(topol);
