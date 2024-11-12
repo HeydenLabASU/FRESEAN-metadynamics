@@ -29,7 +29,7 @@ exit
 fi
 done
 
-#Run the equilibrrium MD simulation to sample vibrational modes
+#Run the equilibrium MD simulation to sample vibrational modes
 #Here: 1GPU and 16 CPU cores are used --> see SBATCH flags: -G -c
 $gmx grompp -f sample-NPT.mdp -c ${inpGRO} -p ${inpTOP} -o sample-NPT.tpr >& grompp.out
 export OMP_NUM_THREADS=16
