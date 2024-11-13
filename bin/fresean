@@ -158,47 +158,6 @@ eigen_subcommand(){
 	$programname ${m} ${n}
 }
 
-convert-eigvec_subcommand(){
-	local OPTIND
-	programname=$EXE/eigVec_PLUMEDformat
-	while getopts "f:" opt
-	do
-		case $opt in
-			f) f=${OPTARG};;
-		esac
-	done
-	if [ -z "$f" ]; then
-		eigVec_PLUMEDformat_usage
-		exit 1
-	fi
-	if [ ! -f "$f" ]; then
-    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
-		exit 1
-	fi
-	$programname ${f}
-}
-
-
-avg-covar_subcommand(){
-	local OPTIND
-	programname=$EXE/avgBinMatrixList
-	while getopts "f:" opt
-	do
-		case $opt in
-			f) f=${OPTARG};;
-		esac
-	done
-	if [ -z "$f" ]; then
-		avg-covar_usage
-		exit 1
-	fi
-	if [ ! -f "$f" ]; then
-    	printf "Error in user input:\nInvalid command-line options\n   In command-line option -f\n      File '$f' does not exist or is not acessible.\n"
-		exit 1
-	fi
-	$programname ${f}
-}
-
 case "$1" in
 	freqs)
 		gen_list_subcommand "${@:2}";;
@@ -212,10 +171,6 @@ case "$1" in
 		covar_subcommand "${@:2}";;
 	eigen)
 		eigen_subcommand "${@:2}";;
-	xyz2pdb)
-		convert-eigvec_subcommand "${@:2}";;
-	avg)
-		avg-covar_subcommand "${@:2}";;
 	*) 
 		usage;;
 esac
