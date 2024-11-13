@@ -23,7 +23,7 @@ make install
 make clean
 source ~/.bashrc
 ```
-If you have already set up GROMACS 2022.5 with Plumed 2.8, please proceed to [FRESEAN Toolbox](#FRESEAN-Toolbox) to get an overview of the provided tools.
+If you have already set up GROMACS 2022.5 with Plumed 2.8, please proceed to the __FRESEAN Toolbox Programs__ section to get an overview of the provided tools. Proceed to the __Provided Protocols - HEWL Example__ section to get an overview on provided scripts.
 </details>
 
 <details>
@@ -91,7 +91,7 @@ source '$HOME/gromacs-2022.5-plumed-2.8/bin/GMXRC.bash'
 </details>
 
 <details>
-<summary> FRESEANCOARSE for HEWL example </summary>
+<summary> Provided Protocols - HEWL Example </summary>
 
 Two protocols are provided in the `scripts` directory. 
 
