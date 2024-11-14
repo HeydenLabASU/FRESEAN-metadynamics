@@ -23,7 +23,7 @@ make install
 make clean
 source ~/.bashrc
 ```
-If you have already set up GROMACS 2022.5 with Plumed 2.8, please proceed to the __FRESEAN Toolbox Programs__ section to get an overview of the provided tools. Proceed to the __Provided Protocols - HEWL Example__ section to get an overview on provided scripts.
+If you have already set up GROMACS 2022.5 with Plumed 2.8, please proceed to the **FRESEAN Toolbox Programs** section to get an overview of the provided tools. Proceed to the **Provided Protocols-HEWL Example** section to get an overview on provided scripts.
 </details>
 
 <details>
@@ -96,7 +96,7 @@ source '$HOME/gromacs-2022.5-plumed-2.8/bin/GMXRC.bash'
 Two protocols are provided in the `scripts` directory. 
 
 1. `protocol_FRESEAN+singleWTMetad`: Starting from a pdb file, run a single 250 ns well-tempered metadynamics with 0 THz FRESEAN modes as collective variables.
-2. `protocol_FRESEAN+convergedWTMetad`: Starting from a pdb file, run 20x100 ns well-tempered metadynamics with 0 THz FRESEAN modes as collective variables.
+2. `protocol_FRESEAN+convergedWTMetad`: Starting from a pdb file, run 20x100 ns well-tempered metadynamics with 0 THz FRESEAN modes as collective variables. __This protocol will generate converged free energy surfaces.__
 
 # Protocol for Single Well-Tempered Metadynamics Simulation
 There are example scripts provided at `scripts/protocol_FRESEAN+singleWTMetad`. This workflow starts with a pdb file and runs 250 ns well-tempered metadynamics with 0 THz FRESEAN modes as collective variables. There is a `run.sh` script in each folder that runs the respective step. Each step is briefly described below.
@@ -234,7 +234,7 @@ The script `scripts/protocol_FRESEAN+singleWTMetad/05-ModeProj/prep_plumed.py` p
 <summary> FRESEAN Toolbox Input Files </summary>
 
 # FRESEAN Toolbox Input Files
-For most of the toolbox, input files (`.inp`) are utilized to gather dependencies. __Lines starting with a hash are ignored__ but serve as a header for the variable on the subsequent line. Here is an example of the format.
+For most of the toolbox, input files (`.inp`) are utilized to gather dependencies. __Lines starting with a hash are ignored__ but can serve as a header for the variable on the subsequent line. Here is an example of the format.
 
 ```
 #fnTop
