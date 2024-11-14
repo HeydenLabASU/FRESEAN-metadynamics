@@ -222,9 +222,10 @@ The script `scripts/protocol_FRESEAN+singleWTMetad/05-ModeProj/prep_plumed.py` p
 ## Well-Tempered Metadynmaics Parameters
 
 - Initial Gaussian Height: 0.1 kJ/mol
-- Gaussian Width: 0.001 kJ/mol
+- Gaussian Width: 0.001
 - Deposit Rate: 1 Gaussian per picosecond (ps)
 - Bias Factor: 10
+- Temperature: 300 K
 
 </details>
 
