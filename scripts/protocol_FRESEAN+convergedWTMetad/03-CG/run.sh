@@ -6,7 +6,7 @@
 #SBATCH -t 0-08:00                  # wall time (D-HH:MM)
 #SBATCH -J COARSE
 
-module load fftw-3.3.10-gcc-11.2.0
+# FFTW is required
 
 #BEGIN INPUT
 gmx=gmx_plumed
