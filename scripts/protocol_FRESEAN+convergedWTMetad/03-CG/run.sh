@@ -27,9 +27,6 @@ outTRRprotCG=sample-NPT_prot_pbc-CG.trr
 #GMX group number for protein (gmx trjconv)
 outGrp=1
 
-#GMX itp file with nonbonded parameters
-GMXDATA=$HOME/gromacs-2022.5-plumed-2.8.2
-
 #time between frames in input trajectory
 TRJtimestep=0.020
 
