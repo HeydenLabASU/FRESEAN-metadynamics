@@ -39,7 +39,7 @@ cp ${inpPlumedPDB} plumed-mode-input.pdb
 #Copy PLUMED hills file from metadynamics run as input for reweighting
 cp ${inpPlumedHills} plumed-mode-metadyn.hills
 
-$gmx mdrun -s ${inpTPRprot} -nsteps 1 -plumed plumed-mass+charge.dat >& plumed-mc.out
+$gmx mdrun -s ${inpTPRprot} -nsteps 1 -plumed ../plumed-mass+charge.dat >& plumed-mc.out
 
 # kT in kJ/mol can be determined by running `plumed kT --temp 300`
 kt=2.494339
