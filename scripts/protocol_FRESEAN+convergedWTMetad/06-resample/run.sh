@@ -7,7 +7,7 @@
 #SBATCH -J RESAMPLE
 
 # Working directory for where the topology and starting structure are
-workingDir=../..
+workingDir=..
 inpTOP=$workingDir/00-prep/topol.top
 inpGRO=$workingDir/01-em+equi/equi/equi.gro
 gmx=gmx_plumed
