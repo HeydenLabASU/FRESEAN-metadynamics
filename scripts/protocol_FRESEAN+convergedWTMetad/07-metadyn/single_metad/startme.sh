@@ -1,7 +1,7 @@
 #!/bin/bash                                                                     
 #SBATCH -p general
 #SBATCH -G a100:1
-#SBATCH -c 16
+#SBATCH -c 12
 #SBATCH -N 1
 #SBATCH -t 7-00:00
 #SBATCH -J METAD_0
