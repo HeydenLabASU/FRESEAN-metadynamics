@@ -15,7 +15,7 @@ inpRefPDBaa=../03-CG/ref.pdb
 inpModesXYZ=../04-FRESEAN/evec_freq1_mode1-30_cg.xyz
 inpTRR=../02-MD/sample-NPT_prot_pbc.trr
 next=1
-nextDir=../06-metadyn
+nextDir=../06-resample
 #END INPUT
 
 files=(
