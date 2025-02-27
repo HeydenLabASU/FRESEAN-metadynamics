@@ -40,7 +40,7 @@ $gmx grompp -f metadyn.mdp -c ${inpGRO} -p ${inpTOP} -o metadyn.tpr >& grompp.ou
 fi
 
 if [ ! -f metadyn_prot.tpr ]; then
-#Create topr file with only protein atoms for analysis
+#Create tpr file with only protein atoms for analysis
 $gmx convert-tpr -s metadyn.tpr -o metadyn_prot.tpr << STOP >& tpr-convert.out
 ${outGrp}
 STOP
