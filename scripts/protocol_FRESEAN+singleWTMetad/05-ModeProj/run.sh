@@ -47,7 +47,7 @@ cat ref.pdb evec_7_aa_scaled.pdb evec_8_aa_scaled.pdb > plumed-mode-input.pdb
 rm ref.pdb input-cg-modes.xyz evec_7_aa_scaled.pdb evec_8_aa_scaled.pdb
 
 #Analyze displacement fluctuations along FRESEAN modes
-plumed driver --mf_trr ${inpTRR} --plumed plumed-mode-projection.out --kt 2.494339 > plumed-driver.out
+plumed driver --mf_trr ${inpTRR} --plumed plumed-mode-projection.dat --kt 2.494339 > plumed-driver.out
 
 #number of histogram bins
 bins=200
