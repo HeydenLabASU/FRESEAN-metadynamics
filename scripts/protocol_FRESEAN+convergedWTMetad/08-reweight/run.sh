@@ -7,4 +7,5 @@ cp -r single_rw reweight_$i
 cd reweight_$i
 echo "Run replica $i"
 sbatch --job-name=REWEIGHT_REPLICA_${i}.run --export=replica=${i} startme.sh
+cd ..
 done
