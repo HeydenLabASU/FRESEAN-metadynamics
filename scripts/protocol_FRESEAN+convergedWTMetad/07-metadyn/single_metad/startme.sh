@@ -6,6 +6,8 @@
 #SBATCH -t 7-00:00
 #SBATCH -J METAD_0
 
+# FFTW IS REQUIRED (PLUMED)
+
 # Working directory containing starting topology
 workingDir=../..
 inpTOP=$workingDir/00-prep/topol.top
